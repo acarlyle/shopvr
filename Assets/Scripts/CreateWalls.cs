@@ -16,19 +16,20 @@ public class CreateWalls : MonoBehaviour
     {
         print("CreateWalls::Create()");
         HmdQuad_t boundaryRect = VRInterface.chaperoneRect;
+        float yPosOffGround = 2.0f;
         print("vCorners0: " + boundaryRect.vCorners0.v0 + ", " + boundaryRect.vCorners0.v1 + ", " + boundaryRect.vCorners0.v2);
         print("vCorners1: " + boundaryRect.vCorners1.v0 + ", " + boundaryRect.vCorners1.v1 + ", " + boundaryRect.vCorners1.v2);
         print("vCorners2: " + boundaryRect.vCorners2.v0 + ", " + boundaryRect.vCorners2.v1 + ", " + boundaryRect.vCorners2.v2);
         print("vCorners3: " + boundaryRect.vCorners3.v0 + ", " + boundaryRect.vCorners3.v1 + ", " + boundaryRect.vCorners3.v2);
-        llCorner = Instantiate(llCorner, new Vector3(boundaryRect.vCorners0.v0, boundaryRect.vCorners0.v1, boundaryRect.vCorners0.v2), Quaternion.identity);
-        lrCorner = Instantiate(lrCorner, new Vector3(boundaryRect.vCorners1.v0, boundaryRect.vCorners1.v1, boundaryRect.vCorners1.v2), Quaternion.identity);
-        urCorner = Instantiate(urCorner, new Vector3(boundaryRect.vCorners2.v0, boundaryRect.vCorners2.v1, boundaryRect.vCorners2.v2), Quaternion.identity);
-        ulCorner = Instantiate(ulCorner, new Vector3(boundaryRect.vCorners3.v0, boundaryRect.vCorners3.v1, boundaryRect.vCorners3.v2), Quaternion.identity);
+        llCorner = Instantiate(llCorner, new Vector3(boundaryRect.vCorners0.v0, yPosOffGround, boundaryRect.vCorners0.v2), Quaternion.identity);
+        lrCorner = Instantiate(lrCorner, new Vector3(boundaryRect.vCorners1.v0, yPosOffGround, boundaryRect.vCorners1.v2), Quaternion.identity);
+        urCorner = Instantiate(urCorner, new Vector3(boundaryRect.vCorners2.v0, yPosOffGround, boundaryRect.vCorners2.v2), Quaternion.identity);
+        ulCorner = Instantiate(ulCorner, new Vector3(boundaryRect.vCorners3.v0, yPosOffGround, boundaryRect.vCorners3.v2), Quaternion.identity);
 
         //Create walls in between each of the corners
         CreateWall(llCorner, lrCorner);
         CreateWall(lrCorner, urCorner);
-        CreateWall(urCorner, ulCorner);
+        //CreateWall(urCorner, ulCorner);
         CreateWall(ulCorner, llCorner);
     }
 
