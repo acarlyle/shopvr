@@ -29,7 +29,7 @@ public class CreateWalls : MonoBehaviour
         //Create walls in between each of the corners
         CreateWall(llCorner, lrCorner);
         CreateWall(lrCorner, urCorner);
-        //CreateWall(urCorner, ulCorner);
+        CreateWall(urCorner, ulCorner);
         CreateWall(ulCorner, llCorner);
     }
 
