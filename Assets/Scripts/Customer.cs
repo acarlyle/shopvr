@@ -8,48 +8,40 @@ using UnityEngine;
 public class Customer : MonoBehaviour
 {
 
-    public enum State
+    protected float m_speed;
+    protected CustomerState m_state; // What this customer is currently doing
+    protected Vector3 m_rotateSpeed;
+
+    public float GetSpeed()
     {
-        Shopping,
-        Negotiating,
-        Waiting
+        return m_speed;
     }
 
-    private float m_speed = 2.0f;
-    private State m_state; // What this customer is currently doing
-    private Vector3 m_rotateSpeed = Vector3.right * 50.0f;
-
-    void HandleState()
+    public void SetState(CustomerState state)
     {
-        switch(m_state)
-        {
-            case State.Shopping:
-                // Move customer to wait in line
-                m_state = State.Waiting;
-                break;
-            case State.Waiting:
-                // Check position in line and move towards counter if space
-                Transform counterTransform = GameObject.Find("Counter").transform;
-                //transform.Rotate(m_rotateSpeed * Time.deltaTime); // customer front flips forever
-                if ((transform.position - counterTransform.position).magnitude > 1.0f)
-                {
-                    transform.position = Vector3.MoveTowards(transform.position, 
-                                                            new Vector3(transform.position.x, transform.position.y, counterTransform.position.z), 
-                                                            m_speed * Time.deltaTime);
-                }
-                break;
-        }
+        if (m_state != null)
+            m_state.OnStateExit();
+
+        m_state = state;
+
+        if (m_state != null)
+            m_state.OnStateEnter();
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        m_state = State.Shopping;
+        m_rotateSpeed = Vector3.right * 50.0f;
+        m_speed = 2.0f;
+
+        // TODO when entering the shoppe, the default state should be shopping
+        SetState(new CustomerWaitingState(this));
     }
 
     // Update is called once per frame
     void Update()
     {
-        HandleState();
+        m_state.UpdateState();
     }
 }
