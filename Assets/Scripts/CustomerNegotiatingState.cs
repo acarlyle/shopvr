@@ -6,12 +6,15 @@ public class CustomerNegotiatingState : CustomerState
 {
     public CustomerNegotiatingState(Customer customer) : base(customer)
     {
-        Debug.Log("CustomerNegotiatingState::OnStateEnter()");
+        
     }
 
     public override void OnStateEnter()
     {
-
+        Debug.Log("CustomerNegotiatingState::OnStateEnter()");
+        // Let the CustomerManager know this customer is now negotiating  
+        //GetComponent<CustomerManager>().SetNegotiatingCustomer(m_customer);
+        //m_customer.CustomerManager().SetNegotiatingCustomer(this);
     }
 
     public override void OnStateExit()
