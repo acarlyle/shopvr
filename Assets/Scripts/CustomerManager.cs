@@ -2,21 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+    Manages how many customers we have in the shoppe and which customers will enter next.  
+*/
 public class CustomerManager : MonoBehaviour
 {
 
     private const int m_maxCustomers = 1;
 
-    private Customer m_negotiatingCustomer; 
+    //private Customer m_negotiatingCustomer; 
     private int m_numCustomers;
 
     public GameObject customer;
 
-    public void SetNegotiatingCustomer(Customer customer)
+    /*public static void SetNegotiatingCustomer(Customer customer)
     {
-        m_negotiatingCustomer = customer;
         Debug.Log("CustomerManager::SetNegotiatingCustomer(Customer)");
-    }
+        m_negotiatingCustomer = customer;
+    }*/
 
     // Start is called before the first frame update
     void Start()

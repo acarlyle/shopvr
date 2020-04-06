@@ -3,12 +3,9 @@ using UnityEngine.Events;
 
 public class Button : MonoBehaviour
 {
-    [System.Serializable]
-    public class ButtonEvent : UnityEvent { }
 
     public float pressLength;
     public bool pressed;
-    public ButtonEvent downEvent;
 
     Vector3 startPos;
     Rigidbody rb;
@@ -17,6 +14,7 @@ public class Button : MonoBehaviour
     {
         startPos = transform.position;
         rb = GetComponent<Rigidbody>();
+        //Debug.Log("BUTTON NAME: " + gameObject.name);
     }
 
     void Update()
@@ -31,8 +29,15 @@ public class Button : MonoBehaviour
             if (!pressed)
             {
                 pressed = true;
-                // If we have an event, invoke it
-                downEvent?.Invoke();
+                switch(gameObject.name)
+                {
+                    case "ButtonDeal":
+                        EventManager.TriggerEvent("ButtonDealPressed");
+                        break;
+                    case "ButtonNoDeal":
+                        EventManager.TriggerEvent("ButtonNoDealPressed");
+                        break;
+                }
             }
         } else
         {

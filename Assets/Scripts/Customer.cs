@@ -17,6 +17,16 @@ public class Customer : MonoBehaviour
         return m_speed;
     }
 
+    void OnButtonDealPressed()
+    {
+        Debug.Log("Customer::OnButtonDealPressed()");
+    }
+
+    void OnButtonNoDealPressed()
+    {
+        Debug.Log("Customer::OnButtonNoDealPressed()");
+    }
+
     public void SetState(CustomerState state)
     {
         if (m_state != null)
@@ -34,6 +44,9 @@ public class Customer : MonoBehaviour
     {
         m_rotateSpeed = Vector3.right * 50.0f;
         m_speed = 2.0f;
+
+        EventManager.StartListening("ButtonDealPressed", OnButtonDealPressed);
+        EventManager.StartListening("ButtonNoDealPressed", OnButtonNoDealPressed);
 
         // TODO when entering the shoppe, the default state should be shopping
         SetState(new CustomerWaitingState(this));

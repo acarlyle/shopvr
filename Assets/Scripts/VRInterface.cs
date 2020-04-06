@@ -20,18 +20,17 @@ public class VRInterface : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (!SetChaperoneRect())
+        while (!SetChaperoneRect())
         {
             print("Failed to get VR Play Area.  Should probably quit ?");
         }
-        else
-        {
-            print("SetChaperoneRect success!");
-            //print("vCorners0: " + chaperoneRect.vCorners0.v0 + ", " + chaperoneRect.vCorners0.v1 + ", " + chaperoneRect.vCorners0.v2);
-            //print("vCorners1: " + chaperoneRect.vCorners1.v0 + ", " + chaperoneRect.vCorners1.v1 + ", " + chaperoneRect.vCorners1.v2);
-            //print("vCorners2: " + chaperoneRect.vCorners2.v0 + ", " + chaperoneRect.vCorners2.v1 + ", " + chaperoneRect.vCorners2.v2);
-            //print("vCorners3: " + chaperoneRect.vCorners3.v0 + ", " + chaperoneRect.vCorners3.v1 + ", " + chaperoneRect.vCorners3.v2);
-        }
+        
+        print("SetChaperoneRect success!");
+        //print("vCorners0: " + chaperoneRect.vCorners0.v0 + ", " + chaperoneRect.vCorners0.v1 + ", " + chaperoneRect.vCorners0.v2);
+        //print("vCorners1: " + chaperoneRect.vCorners1.v0 + ", " + chaperoneRect.vCorners1.v1 + ", " + chaperoneRect.vCorners1.v2);
+        //print("vCorners2: " + chaperoneRect.vCorners2.v0 + ", " + chaperoneRect.vCorners2.v1 + ", " + chaperoneRect.vCorners2.v2);
+        //print("vCorners3: " + chaperoneRect.vCorners3.v0 + ", " + chaperoneRect.vCorners3.v1 + ", " + chaperoneRect.vCorners3.v2);
+        
     }
 
     // Update is called once per frame
