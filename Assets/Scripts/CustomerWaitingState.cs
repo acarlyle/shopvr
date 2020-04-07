@@ -23,12 +23,9 @@ public class CustomerWaitingState : CustomerState
     {
         // Check position in line and move towards counter if space
         Transform counterTransform = GameObject.Find("Counter").transform;
-        //transform.Rotate(m_customer.m_rotateSpeed * Time.deltaTime); // customer front flips forever
         if ((m_customer.transform.position - counterTransform.position).magnitude > 1.0f)
         {
-            m_customer.transform.position = Vector3.MoveTowards(m_customer.transform.position, 
-                                                    new Vector3(m_customer.transform.position.x, m_customer.transform.position.y, counterTransform.position.z), 
-                                                    m_customer.GetSpeed() * Time.deltaTime);
+            m_customer.MoveTowardsPosition(m_customer.transform.position.x, m_customer.transform.position.y, counterTransform.position.z);
         }
         else
         {

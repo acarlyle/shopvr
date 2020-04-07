@@ -10,31 +10,38 @@ public class CustomerManager : MonoBehaviour
 
     private const int m_maxCustomers = 1;
 
-    //private Customer m_negotiatingCustomer; 
     private int m_numCustomers;
 
-    public GameObject customer;
+    public GameObject customerPrefab;
 
-    /*public static void SetNegotiatingCustomer(Customer customer)
+    void OnCustomerLeftShop()
     {
-        Debug.Log("CustomerManager::SetNegotiatingCustomer(Customer)");
-        m_negotiatingCustomer = customer;
-    }*/
+        m_numCustomers--;
+        Debug.Log("CustomerManager::OnCustomerLeftShop() - A customer has exited the shop (hopefully much worse off).  # customers now: " + m_numCustomers);
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         m_numCustomers = 0;
+        EventManager.StartListening("CustomerLeftShop", OnCustomerLeftShop);
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Add new customer to shop if we have room for them
+        // Add new customer to shop at the ShopEntrance object if we have room for them
+        Transform entranceTransform = GameObject.Find("ShopEntrance").transform;
         if (m_numCustomers < m_maxCustomers)
-            // Position to spawn customers is entrance of shop
-            customer = Instantiate(customer, new Vector3(0.021f, 0.81f, 9.739f), Quaternion.identity);
-            if (customer)
+        {
+            //Debug.Log("num Customers,max customers: " + m_numCustomers + "," + m_maxCustomers);
+            // 0.2f -> hardcoded height offset; todo vary offset based on physical customer height
+            var customerInst = Instantiate(customerPrefab, new Vector3(entranceTransform.position.x, entranceTransform.position.y + 0.8f, entranceTransform.position.z), Quaternion.identity);
+            if (customerInst)
+            {
                 m_numCustomers++;
+                Debug.Log("CustomerManager::Update() - A customer has been spawned in the shop.  # customers now: " + m_numCustomers);
+            }
+        }
     }
 }
