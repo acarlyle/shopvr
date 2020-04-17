@@ -22,10 +22,10 @@ public class CustomerLeavingState : CustomerState
     public override void UpdateState()
     {
         // Check position in line and move towards shop entrance if space
-        Transform entranceTransform = GameObject.Find("ShopEntrance").transform;
+        Transform entranceTransform = GameObject.Find("NavPointShopEntrance").transform;
         if ((m_customer.transform.position - entranceTransform.position).magnitude > 1.0f)
         {
-            m_customer.MoveTowardsPosition(m_customer.transform.position.x, m_customer.transform.position.y, entranceTransform.position.z);
+            //m_customer.MoveTowardsPosition(m_customer.transform.position.x, m_customer.transform.position.y, entranceTransform.position.z);
         }
         else
         {

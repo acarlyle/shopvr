@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CustomerWaitingState : CustomerState
+public class CustomerWaitingInLineState : CustomerState
 {
-    public CustomerWaitingState(Customer customer) : base(customer)
+    public CustomerWaitingInLineState(Customer customer) : base(customer)
     {
         
     }
 
     public override void OnStateEnter()
     {
-        Debug.Log("CustomerWaitingState::OnStateEnter()");
+        Debug.Log("CustomerWaitingInLineState::OnStateEnter() -- disabling NavMeshAgent");
+        m_customer.gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
     }
 
     public override void OnStateExit()
@@ -25,7 +26,7 @@ public class CustomerWaitingState : CustomerState
         Transform counterTransform = GameObject.Find("Counter").transform;
         if ((m_customer.transform.position - counterTransform.position).magnitude > 1.0f)
         {
-            m_customer.MoveTowardsPosition(m_customer.transform.position.x, m_customer.transform.position.y, counterTransform.position.z);
+            //m_customer.MoveTowardsPosition(m_customer.transform.position.x, m_customer.transform.position.y, counterTransform.position.z);
         }
         else
         {

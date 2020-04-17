@@ -19,14 +19,14 @@ public class Customer : MonoBehaviour
         EventManager.TriggerEvent("CustomerLeftShop");
     }
 
-    public void MoveTowardsPosition(float x, float y, float z)
+    /*public void MoveTowardsPosition(float x, float y, float z)
     {
         // Rotate Customer to where he's heading
         //transform.Rotate(m_rotateSpeed * Time.deltaTime); // customer front flips forever
         transform.position = Vector3.MoveTowards(transform.position, 
                                                  new Vector3(x, y, z), 
                                                  m_speed * Time.deltaTime);
-    }
+    }*/
 
     void OnButtonDealPressed()
     {
@@ -69,7 +69,7 @@ public class Customer : MonoBehaviour
         EventManager.StartListening("ButtonNoDealPressed", OnButtonNoDealPressed);
 
         // TODO when entering the shoppe, the default state should be shopping
-        SetState(new CustomerWaitingState(this));
+        SetState(new CustomerPreparingForCheckoutState(this));
     }
 
     // Update is called once per frame

@@ -11,6 +11,7 @@ public class CustomerManager : MonoBehaviour
     private const int m_maxCustomers = 1;
 
     private int m_numCustomers;
+    private CustomerLine m_customerLine;
 
     public GameObject customerPrefab;
 
@@ -24,6 +25,8 @@ public class CustomerManager : MonoBehaviour
     void Start()
     {
         m_numCustomers = 0;
+        m_customerLine = new CustomerLine();
+        
         EventManager.StartListening("CustomerLeftShop", OnCustomerLeftShop);
     }
 
@@ -31,7 +34,7 @@ public class CustomerManager : MonoBehaviour
     void Update()
     {
         // Add new customer to shop at the ShopEntrance object if we have room for them
-        Transform entranceTransform = GameObject.Find("ShopEntrance").transform;
+        Transform entranceTransform = GameObject.Find("NavPointShopEntrance").transform;
         if (m_numCustomers < m_maxCustomers)
         {
             //Debug.Log("num Customers,max customers: " + m_numCustomers + "," + m_maxCustomers);
