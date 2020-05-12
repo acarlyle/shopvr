@@ -20,10 +20,10 @@ public class VRInterface : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        while (!SetChaperoneRect())
-        {
+        //while (!SetChaperoneRect())
+        //{
             print("Failed to get VR Play Area.  Should probably quit ?");
-        }
+        //}
         
         print("SetChaperoneRect success!");
         //print("vCorners0: " + chaperoneRect.vCorners0.v0 + ", " + chaperoneRect.vCorners0.v1 + ", " + chaperoneRect.vCorners0.v2);

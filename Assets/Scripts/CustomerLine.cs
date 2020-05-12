@@ -6,11 +6,11 @@ using UnityEngine;
 public class CustomerLine
 {
 
-    // LinkedList of each Customer's position in the line
-    private LinkedList<Transform> m_data;
+    // LinkedList of each Customer in the line
+    private LinkedList<Customer> m_data;
 
     public CustomerLine()
     {
-        m_data = new LinkedList<Transform>();  
+        m_data = new LinkedList<Customer>();  
     }
 }

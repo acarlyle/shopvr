@@ -46,6 +46,11 @@ public class Customer : MonoBehaviour
         }
     }
 
+    public void SetNavPoints(params GameObject[] navObjs)
+    {
+        GetComponent<Pathfinding>().SetNavObjects(navObjs);
+    }
+
     public void SetState(CustomerState state)
     {
         if (m_state != null)

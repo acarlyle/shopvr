@@ -21,7 +21,7 @@ public class CustomerNegotiatingState : CustomerState
 
     public override void UpdateState()
     {
-        m_customer.SetState(new CustomerLeavingState(m_customer));
+        //m_customer.SetState(new CustomerLeavingState(m_customer));
     }
 
 }

@@ -12,7 +12,11 @@ public class CustomerWaitingInLineState : CustomerState
     public override void OnStateEnter()
     {
         Debug.Log("CustomerWaitingInLineState::OnStateEnter() -- disabling NavMeshAgent");
+        // Customer is now no longer pathfinding while standing in line -- disable the pathfinding agent
         m_customer.gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
+        // This customer is the newest customer waiting in line, so we need to move the end of the customer line position back 
+        EventManager.TriggerEvent("NewCustomerInLine");
+
     }
 
     public override void OnStateExit()

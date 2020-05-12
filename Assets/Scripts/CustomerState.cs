@@ -16,4 +16,12 @@ public abstract class CustomerState
     {
         m_customer = customer;
     }
+
+    /*  
+        Sets the Navpoints in 
+    */
+    public void SetStateNavPoints(params GameObject[] navPointObjs)
+    {
+        m_customer.SetNavPoints(navPointObjs);
+    }
 }

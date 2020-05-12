@@ -21,6 +21,27 @@ public class CustomerManager : MonoBehaviour
         Debug.Log("CustomerManager::OnCustomerLeftShop() - A customer has exited the shop (hopefully much worse off).  # customers now: " + m_numCustomers);
     }
 
+    void OnNewCustomerInLine()
+    {
+        Transform endOfLineTransform = GameObject.Find("NavPointCustomerLineEnd").transform;
+        Collider[] colliders;
+
+        Debug.Log("OnNewCustomerInLine()");
+
+        // Find the customer at the end of the line
+        if((colliders = Physics.OverlapSphere(endOfLineTransform.position, 1f /* Radius */)).Length > 1) // Presuming the object you are testing also has a collider 0 otherwise
+        {
+            foreach(var collider in colliders)
+            {
+                var go = collider.gameObject; // This is the game object you collided with
+                Debug.Log(go);
+                if(go == gameObject) continue; // Skip the object itself
+                
+            }
+        }
+        
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +49,7 @@ public class CustomerManager : MonoBehaviour
         m_customerLine = new CustomerLine();
         
         EventManager.StartListening("CustomerLeftShop", OnCustomerLeftShop);
+        EventManager.StartListening("NewCustomerInLine", OnNewCustomerInLine);
     }
 
     // Update is called once per frame
