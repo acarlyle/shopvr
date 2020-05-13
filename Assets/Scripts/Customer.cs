@@ -15,8 +15,8 @@ public class Customer : MonoBehaviour
     public void ExitShop()
     {
         Destroy(gameObject);
-
-        EventManager.TriggerEvent("CustomerLeftShop");
+        EventParam eventParam = new EventParam();
+        EventManager.TriggerEvent("CustomerLeftShop", eventParam);
     }
 
     /*public void MoveTowardsPosition(float x, float y, float z)
@@ -28,7 +28,7 @@ public class Customer : MonoBehaviour
                                                  m_speed * Time.deltaTime);
     }*/
 
-    void OnButtonDealPressed()
+    void OnButtonDealPressed(EventParam eventParam)
     {
         Debug.Log("Customer::OnButtonDealPressed()");
         if (m_state is CustomerNegotiatingState)
@@ -37,7 +37,7 @@ public class Customer : MonoBehaviour
         }
     }
 
-    void OnButtonNoDealPressed()
+    void OnButtonNoDealPressed(EventParam eventParam)
     {
         Debug.Log("Customer::OnButtonNoDealPressed()");
         if (m_state is CustomerNegotiatingState)

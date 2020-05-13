@@ -1,12 +1,12 @@
-﻿using UnityEngine;
-using UnityEngine.Events;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class EventManager : MonoBehaviour 
 {
 
-    private Dictionary <string, UnityEvent> eventDictionary;
+    private Dictionary <string, Action<EventParam>> eventDictionary;
 
     private static EventManager eventManager;
 
@@ -36,41 +36,51 @@ public class EventManager : MonoBehaviour
     {
         if (eventDictionary == null)
         {
-            eventDictionary = new Dictionary<string, UnityEvent>();
+            eventDictionary = new Dictionary<string, Action<EventParam>>();
         }
     }
 
-    public static void StartListening(string eventName, UnityAction listener)
+    public static void StartListening(string eventName, Action<EventParam> listener)
     {
-        UnityEvent thisEvent = null;
+        Action<EventParam> thisEvent;
         if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
         {
-            thisEvent.AddListener(listener);
+            // Adding additional thing to the event already in the existing dictionary 
+            thisEvent += listener;
+            instance.eventDictionary[eventName] = thisEvent;
         } 
         else
         {
-            thisEvent = new UnityEvent ();
-            thisEvent.AddListener (listener);
-            instance.eventDictionary.Add (eventName, thisEvent);
+            // Add new event for the dictionary 
+            thisEvent += listener;
+            instance.eventDictionary.Add(eventName, thisEvent);
         }
     }
 
-    public static void StopListening(string eventName, UnityAction listener)
+    public static void StopListening(string eventName, Action<EventParam> listener)
     {
         if (eventManager == null) return;
-        UnityEvent thisEvent = null;
+        Action<EventParam> thisEvent;
         if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
         {
-            thisEvent.RemoveListener(listener);
+            thisEvent -= listener;
+            instance.eventDictionary[eventName] = thisEvent;
         }
     }
 
-    public static void TriggerEvent(string eventName)
+    public static void TriggerEvent(string eventName, EventParam eventParam)
     {
-        UnityEvent thisEvent = null;
+        Action<EventParam> thisEvent = null;
         if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
         {
-            thisEvent.Invoke();
+            thisEvent.Invoke(eventParam);
         }
     }
+}
+
+/* Argument to be passed to each EventManager Trigger containing a reference to the original caller object.
+   Each field in this struct is optional.  */
+public struct EventParam
+{
+    public MonoBehaviour emitterObj; // obj that emitted this signal
 }

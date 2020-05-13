@@ -15,7 +15,9 @@ public class CustomerWaitingInLineState : CustomerState
         // Customer is now no longer pathfinding while standing in line -- disable the pathfinding agent
         m_customer.gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
         // This customer is the newest customer waiting in line, so we need to move the end of the customer line position back 
-        EventManager.TriggerEvent("NewCustomerInLine");
+        EventParam eventParam = new EventParam();
+        eventParam.emitterObj = m_customer;
+        EventManager.TriggerEvent("NewCustomerInLine", eventParam);
 
     }
 

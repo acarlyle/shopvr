@@ -15,22 +15,23 @@ public class CustomerManager : MonoBehaviour
 
     public GameObject customerPrefab;
 
-    void OnCustomerLeftShop()
+    void OnCustomerLeftShop(EventParam eventParam)
     {
         m_numCustomers--;
         Debug.Log("CustomerManager::OnCustomerLeftShop() - A customer has exited the shop (hopefully much worse off).  # customers now: " + m_numCustomers);
     }
 
-    void OnNewCustomerInLine()
+    void OnNewCustomerInLine(EventParam eventParam)
     {
-        Transform endOfLineTransform = GameObject.Find("NavPointCustomerLineEnd").transform;
-        Collider[] colliders;
 
         Debug.Log("OnNewCustomerInLine()");
 
+        /*Transform endOfLineTransform = GameObject.Find("NavPointCustomerLineEnd").transform;
+        Collider[] colliders; */
+
         // Find the customer at the end of the line
-        if((colliders = Physics.OverlapSphere(endOfLineTransform.position, 1f /* Radius */)).Length > 1) // Presuming the object you are testing also has a collider 0 otherwise
-        {
+        //if((colliders = Physics.OverlapSphere(endOfLineTransform.position, 1f /* Radius */)).Length > 1) // Presuming the object you are testing also has a collider 0 otherwise
+        /*{
             foreach(var collider in colliders)
             {
                 var go = collider.gameObject; // This is the game object you collided with
@@ -38,7 +39,16 @@ public class CustomerManager : MonoBehaviour
                 if(go == gameObject) continue; // Skip the object itself
                 
             }
-        }
+        }*/
+
+        // Add the new customer in line to the back of the m_customerLine
+        Customer customer = (Customer) eventParam.emitterObj;
+
+        // Move the back of the line away from the counter  
+        GameObject navPointEndOfLine = GameObject.Find("NavPointCustomerLineEnd");
+        navPointEndOfLine.transform.position = new Vector3(navPointEndOfLine.transform.position.x, 
+                                                           navPointEndOfLine.transform.position.y, 
+                                                           navPointEndOfLine.transform.position.z + 1.0f);
         
     }
 
@@ -50,6 +60,7 @@ public class CustomerManager : MonoBehaviour
         
         EventManager.StartListening("CustomerLeftShop", OnCustomerLeftShop);
         EventManager.StartListening("NewCustomerInLine", OnNewCustomerInLine);
+        
     }
 
     // Update is called once per frame

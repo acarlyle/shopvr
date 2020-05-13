@@ -29,13 +29,16 @@ public class Button : MonoBehaviour
             if (!pressed)
             {
                 pressed = true;
+                EventParam eventParam = new EventParam();
                 switch(gameObject.name)
                 {
                     case "ButtonDeal":
-                        EventManager.TriggerEvent("ButtonDealPressed");
+                        //eventParam.emitterObj = gameObject;
+                        EventManager.TriggerEvent("ButtonDealPressed", eventParam);
                         break;
                     case "ButtonNoDeal":
-                        EventManager.TriggerEvent("ButtonNoDealPressed");
+                        //eventParam.emitterObj = gameObject;
+                        EventManager.TriggerEvent("ButtonNoDealPressed", eventParam);
                         break;
                 }
             }

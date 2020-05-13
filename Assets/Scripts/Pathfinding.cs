@@ -59,7 +59,7 @@ public class Pathfinding : MonoBehaviour
         EventManager.StartListening("CustomerLineMoved", OnCustomerLineMoved);
     }
 
-    public void OnCustomerLineMoved()
+    public void OnCustomerLineMoved(EventParam eventParam)
     {
 
     }
